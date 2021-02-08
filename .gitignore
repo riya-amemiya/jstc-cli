@@ -1,0 +1,9 @@
+node_modules
+.vscode
+test
+build_cli
+jstc_build
+min
+build
+babel
+out
