@@ -77,8 +77,6 @@ export default async (): Promise<1 | 0> =>
         } else
         {
             mode = argv.m
-            console.log( mode );
-
             if ( mode == "py" || mode == "python" )
             {
                 //js解析結果からpythonに変換して出力
