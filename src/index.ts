@@ -68,7 +68,7 @@ export default async (): Promise<1 | 0> =>
             }
         } );
     }
-    if ( argv.not )
+    if ( !argv.not )
     {
         let mode;
         if ( typeof argv.m !== "string" )
@@ -77,6 +77,8 @@ export default async (): Promise<1 | 0> =>
         } else
         {
             mode = argv.m
+            console.log( mode );
+
             if ( mode == "py" || mode == "python" )
             {
                 //js解析結果からpythonに変換して出力
