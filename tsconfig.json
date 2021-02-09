@@ -5,8 +5,8 @@
   ],
   "compilerOptions": {
     "outDir": "build_cli",
-    "target": "es3",
-    "module": "CommonJS",
+    "target": "es6",
+    "module": "es2020",
     "jsx": "react",
     "noEmit": false,
     "removeComments": true,
