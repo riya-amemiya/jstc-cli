@@ -41,7 +41,9 @@ jsの解析に使用しています
 ## オプション
 
 `-m,--mode` 省略可能(デフォルトはpython)
+
 変換先の言語を指定(現在はpythoとrubyのみサポート)
+
 python | py | ruby | rb
 
 `-t,--test` ASTをJSONで出力するオプションです
