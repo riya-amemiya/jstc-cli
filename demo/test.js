@@ -1,12 +1,5 @@
-Name("Hello")
-
-function Name(name) {
-    console.log(name);
-    return name
+function name() {
+    console.log("a");
+    let a = 1
+    console.log(1 + 2 + 3 + a + 9 + 100);
 }
-
-function sum(a, b) {
-    return a + b
-}
-const a = Name(Name("Hello"))
-console.log(a);

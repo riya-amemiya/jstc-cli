@@ -7,6 +7,20 @@
                 "modules": "commonjs",
                 "targets": {
                     "node": "current"
+                },
+                "env": {
+                    "production": {
+                        "presets": [
+                            [
+                                "minify",
+                                {
+                                    "builtIns": false,
+                                    "evaluate": false,
+                                    "mangle": false
+                                }
+                            ]
+                        ]
+                    }
                 }
             }
         ],

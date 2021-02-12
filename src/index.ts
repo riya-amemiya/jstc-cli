@@ -15,7 +15,8 @@ export default async (): Promise<1 | 0> =>
             t: "test",
             v: "version",
             o: "out",
-            n: "not"
+            n: "not",
+            op: "optimisation"
         }
     } )
     /**
@@ -70,7 +71,7 @@ export default async (): Promise<1 | 0> =>
     }
     if ( !argv.not )
     {
-        let mode;
+        let mode: string;
         if ( typeof argv.m !== "string" )
         {
             console.log( "引数が不足しています" );
@@ -79,23 +80,25 @@ export default async (): Promise<1 | 0> =>
             mode = argv.m
             if ( mode == "py" || mode == "python" )
             {
+                mode = "python"
                 //js解析結果からpythonに変換して出力
-                await ( async () =>
+                await ( async (): Promise<void> =>
                 {
                     const { python } = await import( "@jstc/core" )
-                    let c = python( parse, "python" )
-                    fs.writeFileSync( `${ path.resolve( out ) }/index.py`, c.code, "utf8" )
-                    console.log( c.code );
+                    let c = new python( { codes: parse, mode: mode, option: { optimisation: argv.op } } )
+                    fs.writeFileSync( `${ path.resolve( out ) }/index.py`, c.parse.code, "utf8" )
+                    console.log( c.parse.code );
 
                 } )()
             } else if ( mode == "rb" || mode == "ruby" )
             {
-                await ( async () =>
+                mode = "ruby"
+                await ( async (): Promise<void> =>
                 {
                     const { ruby } = await import( "@jstc/core" )
-                    let c = ruby( parse, "ruby" )
-                    fs.writeFileSync( `${ path.resolve( out ) }/index.rb`, c.code, "utf8" )
-                    console.log( c.code );
+                    let c = new ruby( { codes: parse, mode: mode, option: { optimisation: argv.op } } )
+                    fs.writeFileSync( `${ path.resolve( out ) }/index.rb`, c.parse.code, "utf8" )
+                    console.log( c.parse.code );
 
                 } )()
             } else
@@ -103,21 +106,12 @@ export default async (): Promise<1 | 0> =>
                 await ( async () =>
                 {
                     const { python } = await import( "@jstc/core" )
-                    let c = python( parse, "python" )
-                    fs.writeFileSync( `${ path.resolve( out ) }/index.py`, c.code, "utf8" )
-                    console.log( c.code );
+                    let c = new python( { codes: parse, mode: "python", option: { optimisation: argv.op } } )
+                    fs.writeFileSync( `${ path.resolve( out ) }/index.py`, c.parse.code, "utf8" )
+                    console.log( c.parse.code );
                 } )()
             }
         }
-    } else
-    {
-        await ( async () =>
-        {
-            const { python } = await import( "@jstc/core" )
-            let c = python( parse, "python" )
-            fs.writeFileSync( `${ path.resolve( out ) }/index.py`, c.code, "utf8" )
-            console.log( c.code );
-        } )()
     }
 
     //解析結果出力オプションの確認
