@@ -23,19 +23,22 @@ export default async (): Promise<1 | 0> =>
      * @const
      * @type {any}
      */
-    const parse: any = acorn?.parse( read( path.resolve( path.resolve( process.argv[ 2 ] ) ) ), {
-        ecmaVersion: "latest",
-        allowAwaitOutsideFunction: true,
-        allowImportExportEverywhere: true,
-        allowReserved: true
-    } )
+    const parse: any = ( () =>
+    {
+        return acorn?.parse( read( path.resolve( path.resolve( process.argv[ 2 ] ) ) ), {
+            ecmaVersion: "latest",
+            allowAwaitOutsideFunction: true,
+            allowImportExportEverywhere: true,
+            allowReserved: true
+        } )
+    } )()
     /**
      * @type {string}
      */
     //versionオプションの確認
     if ( argv.v )
     {
-        await ( async function (): Promise<void>
+        ( async function (): Promise<void>
         {
             const v = await import( "./../package.json" )
             console.log( v.version );
@@ -75,14 +78,16 @@ export default async (): Promise<1 | 0> =>
         if ( typeof argv.m !== "string" )
         {
             console.log( "引数が不足しています" );
+            console.log( "modeにはpython or rubyの指定をして下さい" );
+
         } else
         {
             mode = argv.m
             if ( mode == "py" || mode == "python" )
             {
-                mode = "python"
+                mode = "python";
                 //js解析結果からpythonに変換して出力
-                await ( async (): Promise<void> =>
+                ( async (): Promise<void> =>
                 {
                     const { python } = await import( "@jstc/core" )
                     let c = new python( { codes: parse, mode: mode, option: { optimisation: argv.op } } )
@@ -92,8 +97,8 @@ export default async (): Promise<1 | 0> =>
                 } )()
             } else if ( mode == "rb" || mode == "ruby" )
             {
-                mode = "ruby"
-                await ( async (): Promise<void> =>
+                mode = "ruby";
+                ( async (): Promise<void> =>
                 {
                     const { ruby } = await import( "@jstc/core" )
                     let c = new ruby( { codes: parse, mode: mode, option: { optimisation: argv.op } } )
@@ -103,7 +108,7 @@ export default async (): Promise<1 | 0> =>
                 } )()
             } else
             {
-                await ( async () =>
+                ( async () =>
                 {
                     const { python } = await import( "@jstc/core" )
                     let c = new python( { codes: parse, mode: "python", option: { optimisation: argv.op } } )
