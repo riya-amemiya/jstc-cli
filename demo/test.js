@@ -1,5 +1,9 @@
-function name() {
-    console.log("a");
-    let a = 1
-    console.log(1 + 2 + 3 + a + 9 + 100);
+const a = 0
+
+
+function name(num) {
+    return num
 }
+Name("Hello")
+console.log(Name("Hello"));
+console.log(a);

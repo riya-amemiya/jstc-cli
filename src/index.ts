@@ -104,7 +104,6 @@ export default async (): Promise<1 | 0> =>
                     let c = new ruby( { codes: parse, mode: mode, option: { optimisation: argv.op } } )
                     fs.writeFileSync( `${ path.resolve( out ) }/index.rb`, c.parse.code, "utf8" )
                     console.log( c.parse.code );
-
                 } )()
             } else
             {

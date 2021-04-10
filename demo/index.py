@@ -1,1 +1,5 @@
-def name(): print("a");print("a");a=1;print(116+a); return 
+def name(num):  return num
+A=0
+Name("Hello")#警告:Nameは宣言されていません!
+print(Name("Hello"))
+print(A)
